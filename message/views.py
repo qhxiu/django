@@ -5,11 +5,14 @@ from .models import UserMessage
 # Create your views here.
 
 def getform(request):
-    all_message = UserMessage.objects.filter(name='11', address='深圳')
+    message = None
+    all_message = UserMessage.objects.filter(name='kaka')
+    if all_message:
+        message = all_message[0]
 
-    for message in all_message:
-        message.delete()
-        print(message.name)
+    # for message in all_message:
+    #     message.delete()
+    #     print(message.name)
 
 
     # if request.method == 'POST':
@@ -25,7 +28,9 @@ def getform(request):
     #     user_message.email = email
     #     user_message.object_id = "hello3"
     #     user_message.save()
-    return render(request, 'message_form.html')
+    return render(request, 'message_form.html', {
+        "my_message": message
+    })
 
 def book_list(request):
     db = MySQLdb.connect(user='root', db='testdjango', password='ha', host='locahost')
